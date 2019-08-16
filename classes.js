@@ -30,7 +30,17 @@
 */
 
 //Code Here
-
+class Employee {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+  }
+makeWidget() {
+  return `${this.first_name} ${this.last_name} Widget`;
+}
+}
 
 ////////// PROBLEM 2 //////////
 
@@ -48,7 +58,19 @@
 */
 
 //Code Here
+class Manager extends Employee{
+  constructor(first_name, last_name, email, age) {
+    super(first_name, last_name, email, age)
+    this.reports = [];
+  }
 
+  hire(employee) {
+    this.reports.push(employee);
+  }
+  fire(index) {
+    this.reports.splice(index, 1);
+  }
+}
 
 ////////// PROBLEM 3 //////////
 
@@ -66,12 +88,54 @@
     51-100 reports : Manager Plus
     101+ reports : Bestest Manager
 
-  Everytime they fire an employee they get $100 added to their bonus.
+  Every time they fire an employee they get $100 added to their bonus.
 
   Call your new class ProgressiveManager
 */
 
 //Code Here
+class ProgressiveManager extends Manager{
+  constructor(first_name, last_name, email, age, reports) {
+  super(first_name, last_name, email, age, reports)
+  this.title = 'Not a manager';
+  this.bonus = 0;
+  }
+  hire(employee) {
+    this.reports.push(employee);
+    if(this.reports.length === 0) {
+      this.title = 'Not a manager';
+    }else if(this.reports.length >= 1 && 3 >= this.reports.length) {
+    this.title = 'Barely Manager';
+    }else if(this.reports.length >= 4 && 10 >= this.reports.length) {
+      this.title = 'Mostly Manager';
+    }else if(this.reports.length >= 11 && 50 >= this.reports.length) {
+      this.title = 'Manager';
+    }else if(this.reports.length >= 51 && 100 >= this.reports.length) {
+        this.title = 'Manager Plus';
+    }else if(this.reports.length >= 101) {
+      this.title = 'Bestest Manager';
+    }
+  }
+  fire(index) {
+    this.reports.splice(index, 1);
+    if(this.reports.length === 0) {
+      this.title = 'Not a manager';
+    }else if(this.reports.length >= 1 && 3 >= this.reports.length) {
+      this.title = 'Barely Manager';
+    }else if(this.reports.length >= 4 && 10 >= this.reports.length) {
+      this.title = 'Mostly Manager';
+    }else if(this.reports.length >= 11 && 50 >= this.reports.length) {
+      this.title = 'Manager';
+    }else if(this.reports.length >= 51 && 100 >= this.reports.length) {
+        this.title = 'Manager Plus';
+    }else if(this.reports.length >= 101) {
+      this.title = 'Bestest Manager';
+    }
+    this.bonus += 100;
+  }
+}
+
+
 
 
 
